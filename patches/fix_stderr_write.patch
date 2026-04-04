@@ -1,5 +1,5 @@
---- compile_shader_spirv.py
-+++ compile_shader_spirv.py
+--- /home/runner/work/XeniaCanary-Snap/XeniaCanary-Snap/parts/xenia-src/build/tools/build/compile_shader_spirv.py
++++ /home/runner/work/XeniaCanary-Snap/XeniaCanary-Snap/parts/xenia-src/build/tools/build/compile_shader_spirv.py
 @@ -118,7 +118,9 @@
      )
  
