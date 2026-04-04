@@ -1,0 +1,91 @@
+name: xenia-canary
+base: core24
+version: 'canary'
+summary: Xbox 360 research emulator 
+description: |
+  Xenia Canary is an experimental fork of the Xbox 360 emulator, Xenia.
+  Learn more at https://xenia.jp/
+grade: stable
+confinement: strict
+
+platforms:
+  amd64:
+
+apps:
+  xenia-canary:
+    command: bin/xenia-canary.sh
+    desktop: share/applications/org.xenia.Xenia-canary.desktop
+    extensions: [gnome]
+    plugs:
+      - x11
+      - opengl
+      - network
+      - home
+      - removable-media
+      - audio-playback
+      - joystick
+      - bluez
+      - screen-inhibit-control
+    environment:
+      LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/lib:$SNAP/lib64:$LD_LIBRARY_PATH
+
+parts:
+  xenia-src:
+    plugin: nil
+    source: https://github.com/xenia-canary/xenia-canary.git
+    source-tag: canary_experimental
+    build-packages:
+      - python3
+      - build-essential
+      - libvulkan-dev
+      - libsdl2-dev
+      - clang-19
+      - llvm-19
+    stage-packages:
+      - libsdl2-2.0-0
+      - libvulkan1
+      - libglu1-mesa
+    override-pull: |
+      craftctl default
+      project="${CRAFT_PROJECT_DIR:-$SNAPCRAFT_PROJECT_DIR}"
+      patch_file () {
+        patchfile=$1
+        if [ -f "$patchfile" ]; then
+          echo "Applying $patchfile"
+          # ignore the whitespaces
+          # and search 3 lines up and down for the one to patch
+          # in case it changes in source
+          patch -p1 -l --fuzz 3 < "$patchfile"
+        else
+          for i in {1..5}; do echo "WARNING: Patch not found at $patchfile so proceeding without it."; done
+        fi
+      }
+      patch_file "$project/patches/0001-remove-stdc++fs.patch"    
+    override-build: |
+      # do the build
+      python3 xb premake
+      python3 xb build --config=release
+
+      # make needed dirs if they aren't there
+      mkdir -p $CRAFT_PART_INSTALL/bin
+      mkdir -p $CRAFT_PART_INSTALL/share/applications
+      mkdir -p $CRAFT_PART_INSTALL/share/icons/hicolor/scalable/apps
+
+      # move the actual built binary to /bin/
+      # so it actually runs... man if i forgot this...
+      cp build/bin/Linux/Release/xenia_canary $CRAFT_PART_INSTALL/bin/xenia-canary
+
+      # move launcher sh to /bin/ so it is used at run time
+      cp $CRAFT_PROJECT_DIR/xenia-canary.sh $CRAFT_PART_INSTALL/bin/
+      # give it correct permissions (note to anyone reading this... never forget to chmod +x an .sh)
+      chmod +x $CRAFT_PART_INSTALL/bin/xenia-canary.sh
+
+      # move icon and .desktop to their places
+      # ...if this isn't here then...
+      cp $CRAFT_PROJECT_DIR/org.xenia.Xenia-canary.desktop $CRAFT_PART_INSTALL/share/applications/
+      cp $CRAFT_PROJECT_DIR/xenia-canary.svg $CRAFT_PART_INSTALL/share/icons/hicolor/scalable/apps/
+    prime:
+      - bin/*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/*
+      - usr/share/icons/*
+      - share/applications/*
