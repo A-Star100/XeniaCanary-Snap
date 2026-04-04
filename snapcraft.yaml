@@ -38,6 +38,8 @@ parts:
       - build-essential
       - libvulkan-dev
       - libsdl2-dev
+      - libxcb1-dev
+      - libx11-dev
       - clang-19
       - llvm-19
       - libgtk-3-dev
@@ -45,9 +47,12 @@ parts:
       - libsdl2-2.0-0
       - libvulkan1
       - libglu1-mesa
+      - libdecor-1-0
       - libgtk2.0-0
-      - libxcb1-dev
-      - libx11-dev
+      - libxcb1
+      - libx11
+      - alsa-lib
+      - hicolor-icon-theme
     # override-pull: |
     #   craftctl default
     #   project="${CRAFT_PROJECT_DIR:-$SNAPCRAFT_PROJECT_DIR}"
