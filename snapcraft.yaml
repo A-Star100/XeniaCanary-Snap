@@ -15,7 +15,6 @@ apps:
   xenia-canary:
     command: bin/xenia-canary.sh
     desktop: share/applications/org.xenia.Xenia-canary.desktop
-    extensions: [gnome]
     plugs:
       - x11
       - opengl
