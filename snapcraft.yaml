@@ -49,7 +49,7 @@ parts:
       chmod +x $CRAFT_PART_INSTALL/bin/xenia-canary.sh
       
       cp $CRAFT_PROJECT_DIR/org.xenia.Xenia-canary.desktop $CRAFT_PART_INSTALL/share/applications/
-      cp $CRAFT_PROJECT_DIR/xenia-canary.svg $CRAFT_PART_INSTALL/share/icons/hicolor/scalable/apps/
+      cp $CRAFT_PROJECT_DIR/xenia-canary.svg $CRAFT_PART_INSTALL/share/icons/hicolor/scalable/apps/xenia_canary
 
     stage-packages:
       - libvulkan1
