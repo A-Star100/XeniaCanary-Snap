@@ -13,22 +13,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Install snapcraft cli
+      - name: Install snapcraft
         run: |
           sudo snap install snapcraft --classic
 
+
       - name: Build snap
-        run: |
-          sudo snapcraft pack --destructive-mode
-        # env:
-        #   SNAPCRAFT_BUILD_ENVIRONMENT: host
-        #   USE_SYSTEM_FPM: true
+        uses: snapcore/action-build@v1
+        id: snapcraft
+        with:
+          snapcraft-args: "--destructive-mode"
 
       - name: Upload snap
         uses: actions/upload-artifact@v6
         with:
           name: xenia-canary-x64-snap
-          path: "*.snap"
-  #   with:
-  #     channel: 'edge'
-  #   secrets: inherit
+          path: ${{ steps.snapcraft.outputs.snap }}
+
+      - name: Publish snap
+        uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
+        with:
+          snap: ${{ steps.snapcraft.outputs.snap }}
+          release: canary
