@@ -57,22 +57,22 @@ parts:
       - libxcb1
       - libasound2
       - libx11-xcb-dev
-    override-pull: |
-      craftctl default
-      project="${CRAFT_PROJECT_DIR:-$SNAPCRAFT_PROJECT_DIR}"
-      patch_file () {
-        patchfile=$1
-        if [ -f "$patchfile" ]; then
-          echo "Applying $patchfile"
-          # ignore the whitespaces
-          # and search 3 lines up and down for the one to patch
-          # in case it changes in source
-          patch -p1 -l --fuzz 3 < "$patchfile"
-        else
-          for i in {1..5}; do echo "WARNING: Patch not found at $patchfile so proceeding without it."; done
-        fi
-      }
-      patch_file "$project/patches/fix_stderr_write.patch"    
+    # override-pull: |
+    #   craftctl default
+    #   project="${CRAFT_PROJECT_DIR:-$SNAPCRAFT_PROJECT_DIR}"
+    #   patch_file () {
+    #     patchfile=$1
+    #     if [ -f "$patchfile" ]; then
+    #       echo "Applying $patchfile"
+    #       # ignore the whitespaces
+    #       # and search 3 lines up and down for the one to patch
+    #       # in case it changes in source
+    #       patch -p1 -l --fuzz 3 < "$patchfile"
+    #     else
+    #       for i in {1..5}; do echo "WARNING: Patch not found at $patchfile so proceeding without it."; done
+    #     fi
+    #   }
+    #   patch_file "$project/patches/fix_stderr_write.patch"    
     override-build: |
       # get submodules
       git submodule update --init --recursive
