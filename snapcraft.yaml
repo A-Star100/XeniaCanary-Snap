@@ -15,6 +15,7 @@ apps:
   xenia-canary:
     command: bin/xenia-canary.sh
     desktop: share/applications/org.xenia.Xenia-canary.desktop
+    extensions: [kde]
     plugs:
       - x11
       - opengl
@@ -50,8 +51,8 @@ parts:
       - libglu1-mesa
       - libgtk2.0-0
       - libxcb1
-      - libx11-6 
       - libasound2
+      - libx11-xcb-dev
     # override-pull: |
     #   craftctl default
     #   project="${CRAFT_PROJECT_DIR:-$SNAPCRAFT_PROJECT_DIR}"
