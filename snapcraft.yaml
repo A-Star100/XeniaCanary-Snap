@@ -64,21 +64,21 @@ parts:
       # get submodules
       git submodule update --init --recursive
 
-      # unset path vars set
-      # by gnome SDK
-      # because it overrides ffmpeg
-      # which is used in xenia
-      # and interferes with build a lot
-      unset CPATH
-      unset C_INCLUDE_PATH
-      unset CPLUS_INCLUDE_PATH
+      # # unset path vars set
+      # # by gnome SDK
+      # # because it overrides ffmpeg
+      # # which is used in xenia
+      # # and interferes with build a lot
+      # unset CPATH
+      # unset C_INCLUDE_PATH
+      # unset CPLUS_INCLUDE_PATH
 
-      # give our own path vars instead
-      # with -isystem so xenia will never ever
-      # ever ever ever ignore it... hopefully
-      export CFLAGS="-isystem $CRAFT_PART_SRC/third_party/FFmpeg $CFLAGS"
-      export CXXFLAGS="-isystem $CRAFT_PART_SRC/third_party/FFmpeg $CXXFLAGS"
-      export CPATH="$CRAFT_PART_SRC/third_party/FFmpeg"
+      # # give our own path vars instead
+      # # with -isystem so xenia will never ever
+      # # ever ever ever ignore it... hopefully
+      # export CFLAGS="-isystem $CRAFT_PART_SRC/third_party/FFmpeg $CFLAGS"
+      # export CXXFLAGS="-isystem $CRAFT_PART_SRC/third_party/FFmpeg $CXXFLAGS"
+      # export CPATH="$CRAFT_PART_SRC/third_party/FFmpeg"
       
       # do the build
       python3 xb premake
