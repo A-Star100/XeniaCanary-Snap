@@ -1,0 +1,13 @@
+--- compile_shader_spirv.py
++++ compile_shader_spirv.py
+@@ -118,7 +118,9 @@
+     )
+ 
+     if result.stderr:
+-        sys.stderr.write(result.stderr)
++        sys.stderr.write(result.stderr.decode('utf-8', errors='replace'))
++
++    if result.returncode != 0:
+         sys.exit(1)
+ 
+ def main():
