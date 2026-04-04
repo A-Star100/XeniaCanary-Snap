@@ -21,6 +21,12 @@ jobs:
       - name: Build snap
         run: |
           sudo snapcraft pack --destructive-mode
+          # man I wish snapcore/action-publish
+          # supported globstars
+          # but because it does not we have to pass path as an ENV
+          # version num will be variable so this is required
+          snap=$(ls *.snap | head -n 1)
+          echo "SNAP_PATH=$snap" >> $GITHUB_ENV
 
       - name: Upload snap
         uses: actions/upload-artifact@v6
@@ -33,5 +39,5 @@ jobs:
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
         with:
-          snap: "*.snap"
+          snap: ${{ env.SNAP_PATH }}
           release: canary
