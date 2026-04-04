@@ -15,92 +15,51 @@ apps:
   xenia-canary:
     command: bin/xenia-canary.sh
     desktop: share/applications/org.xenia.Xenia-canary.desktop
-    extensions: [kde-neon] # kde neon adds a lot of libs required for canary to compile
-    # gnome interferes with ffmpeg heavily during compile process
-    # causing failures... but kde neon does not
+    extensions: [kde-neon]
     plugs:
-      - x11 # canary doesn't support wayland i think
+      - x11
       - opengl
       - network
-      - home # for games
-      - removable-media # also games
+      - home
+      - removable-media
       - audio-playback
       - joystick
       - bluez
-      - screen-inhibit-control # to keep screen on during gameplay
+      - screen-inhibit-control
     environment:
-      HOME: $SNAP_USER_COMMON # so xenia doesn't store shader caches in squashfs filesystem and games lag
-      LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/lib:$SNAP/lib64:$LD_LIBRARY_PATH # workaround for lib paths
+      HOME: $SNAP_USER_COMMON
+      LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/lib:$SNAP/lib64:$LD_LIBRARY_PATH
 
 parts:
-  xenia-src:
+  xenia-bin:
     plugin: nil
-    source: https://github.com/xenia-canary/xenia-canary.git
-    source-branch: canary_experimental
-    build-packages:
-      - python3
-      - glslang-tools
-      - build-essential
-      - libvulkan-dev
-      - libsdl2-dev
-      - libxcb1-dev
-      - libx11-dev
-      - clang-20
-      - llvm-20
-      - libasound2-dev
-      - libgtk-3-dev
-    stage-packages:
-      - libsdl2-2.0-0
-      - libvulkan1
-      - libglu1-mesa
-      - libgtk2.0-0
-      - libxcb1
-      - libasound2
-      - libx11-xcb-dev
-    # override-pull: |
-    #   craftctl default
-    #   project="${CRAFT_PROJECT_DIR:-$SNAPCRAFT_PROJECT_DIR}"
-    #   patch_file () {
-    #     patchfile=$1
-    #     if [ -f "$patchfile" ]; then
-    #       echo "Applying $patchfile"
-    #       # ignore the whitespaces
-    #       # and search 3 lines up and down for the one to patch
-    #       # in case it changes in source
-    #       patch -p1 -l --fuzz 3 < "$patchfile"
-    #     else
-    #       for i in {1..5}; do echo "WARNING: Patch not found at $patchfile so proceeding without it."; done
-    #     fi
-    #   }
-    #   patch_file "$project/patches/fix_stderr_write.patch"    
+    source: https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary_linux.AppImage
+    source-type: file
     override-build: |
-      # get submodules
-      git submodule update --init --recursive
+      chmod +x $CRAFT_PART_SRC/xenia_canary_linux.AppImage
+      $CRAFT_PART_SRC/xenia_canary_linux.AppImage --appimage-extract
       
-      # do the build
-      python3 xb premake
-      python3 xb build --config=release
-
-      # make needed dirs if they aren't there
       mkdir -p $CRAFT_PART_INSTALL/bin
       mkdir -p $CRAFT_PART_INSTALL/share/applications
       mkdir -p $CRAFT_PART_INSTALL/share/icons/hicolor/scalable/apps
 
-      # move the actual built binary to /bin/
-      # so it actually runs... man if i forgot this...
-      cp build/bin/Linux/Release/xenia_canary $CRAFT_PART_INSTALL/bin/xenia-canary
+      cp squashfs-root/usr/bin/xenia_canary $CRAFT_PART_INSTALL/bin/xenia-canary
 
-      # move everything in repo root to xenia's bin
-      cp $CRAFT_PROJECT_DIR/* $CRAFT_PART_INSTALL/bin/
-      # give it correct permissions (note to anyone reading this... never forget to chmod +x an .sh)
+      cp $CRAFT_PROJECT_DIR/xenia-canary.sh $CRAFT_PART_INSTALL/bin/
       chmod +x $CRAFT_PART_INSTALL/bin/xenia-canary.sh
-
-      # move icon and .desktop to their places
-      # ...if this isn't here then...
+      
       cp $CRAFT_PROJECT_DIR/org.xenia.Xenia-canary.desktop $CRAFT_PART_INSTALL/share/applications/
       cp $CRAFT_PROJECT_DIR/xenia-canary.svg $CRAFT_PART_INSTALL/share/icons/hicolor/scalable/apps/
+
+    stage-packages:
+      - libvulkan1
+      - libglu1-mesa
+      - libsdl2-2.0-0
+      - libasound2
+      - libpulse0
+
     prime:
       - bin/*
       - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/*
-      - usr/share/icons/*
       - share/applications/*
+      - share/icons/*
