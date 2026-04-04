@@ -15,19 +15,22 @@ apps:
   xenia-canary:
     command: bin/xenia-canary.sh
     desktop: share/applications/org.xenia.Xenia-canary.desktop
-    extensions: [kde-neon]
+    extensions: [kde-neon] # kde neon adds a lot of libs required for canary to compile
+    # gnome interferes with ffmpeg heavily during compile process
+    # causing failures... but kde neon does not
     plugs:
-      - x11
+      - x11 # canary doesn't support wayland i think
       - opengl
       - network
-      - home
-      - removable-media
+      - home # for games
+      - removable-media # also games
       - audio-playback
       - joystick
       - bluez
-      - screen-inhibit-control
+      - screen-inhibit-control # to keep screen on during gameplay
     environment:
-      LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/lib:$SNAP/lib64:$LD_LIBRARY_PATH
+      HOME: $SNAP_USER_COMMON # so xenia doesn't store shader caches in squashfs filesystem and games lag
+      LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/lib:$SNAP/lib64:$LD_LIBRARY_PATH # workaround for lib paths
 
 parts:
   xenia-src:
@@ -73,22 +76,6 @@ parts:
     override-build: |
       # get submodules
       git submodule update --init --recursive
-
-      # # unset path vars set
-      # # by gnome SDK
-      # # because it overrides ffmpeg
-      # # which is used in xenia
-      # # and interferes with build a lot
-      # unset CPATH
-      # unset C_INCLUDE_PATH
-      # unset CPLUS_INCLUDE_PATH
-
-      # # give our own path vars instead
-      # # with -isystem so xenia will never ever
-      # # ever ever ever ignore it... hopefully
-      # export CFLAGS="-isystem $CRAFT_PART_SRC/third_party/FFmpeg $CFLAGS"
-      # export CXXFLAGS="-isystem $CRAFT_PART_SRC/third_party/FFmpeg $CXXFLAGS"
-      # export CPATH="$CRAFT_PART_SRC/third_party/FFmpeg"
       
       # do the build
       python3 xb premake
