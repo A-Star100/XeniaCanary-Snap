@@ -46,6 +46,7 @@ parts:
       cp squashfs-root/usr/bin/xenia_canary $CRAFT_PART_INSTALL/bin/xenia_canary
       cp -r squashfs-root/usr/lib/* $CRAFT_PART_INSTALL/lib/
       cp -r squashfs-root/usr/share/* $CRAFT_PART_INSTALL/share/
+      cp $CRAFT_PROJECT_DIR/org.xenia.Xenia-canary.desktop $CRAFT_PART_INSTALL/share/applications/
 
       cp $CRAFT_PROJECT_DIR/xenia-canary.sh $CRAFT_PART_INSTALL/bin/
       chmod +x $CRAFT_PART_INSTALL/bin/xenia-canary.sh
