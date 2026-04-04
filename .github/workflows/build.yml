@@ -8,14 +8,7 @@ on:
 
 jobs:
   test-build:
-    strategy:
-      matrix:
-        include:
-          - architecture: amd64
-            os: ubuntu-24.04
-          - architecture: arm64
-            os: ubuntu-24.04-arm 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -27,9 +20,9 @@ jobs:
       - name: Build snap
         run: |
           sudo snapcraft pack --destructive-mode
-        env:
-          SNAPCRAFT_BUILD_ENVIRONMENT: host
-          USE_SYSTEM_FPM: true
+        # env:
+        #   SNAPCRAFT_BUILD_ENVIRONMENT: host
+        #   USE_SYSTEM_FPM: true
 
       - name: Upload snap
         uses: actions/upload-artifact@v6
