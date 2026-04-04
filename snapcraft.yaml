@@ -62,6 +62,8 @@ parts:
     #   }
     #   patch_file "$project/patches/0001-remove-stdc++fs.patch"    
     override-build: |
+      # get submodules
+      git submodule update --init --recursive
       # do the build
       python3 xb premake
       python3 xb build --config=release
