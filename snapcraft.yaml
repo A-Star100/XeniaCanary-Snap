@@ -69,7 +69,7 @@ parts:
           for i in {1..5}; do echo "WARNING: Patch not found at $patchfile so proceeding without it."; done
         fi
       }
-      patch_file "$project/patches/fix-stderr-write.patch"    
+      patch_file "$project/patches/fix_stderr_write.patch"    
     override-build: |
       # get submodules
       git submodule update --init --recursive
