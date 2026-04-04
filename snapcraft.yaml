@@ -79,6 +79,7 @@ parts:
       # ever ever ever ignore it... hopefully
       export CFLAGS="-isystem $CRAFT_PART_SRC/third_party/FFmpeg $CFLAGS"
       export CXXFLAGS="-isystem $CRAFT_PART_SRC/third_party/FFmpeg $CXXFLAGS"
+      export CPATH="$CRAFT_PART_SRC/third_party/FFmpeg"
       
       # do the build
       python3 xb premake
