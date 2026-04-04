@@ -34,6 +34,32 @@ parts:
     plugin: nil
     source: https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary_linux.AppImage
     source-type: file
+    stage-packages:
+      - libx11-6
+      - libx11-xcb1
+      - libxcb1
+      - libasound2t64
+      - libgbm1
+      - libwayland-client0
+      - libfontconfig1
+      - libfribidi0
+      - libharfbuzz0b
+      - libgtk-3-0
+      - libpango-1.0-0
+      - libpangocairo-1.0-0
+      - libpulse0
+      - libxcomposite1
+      - libxcursor1
+      - libxdamage1
+      - libxext6
+      - libxfixes3
+      - libxi6
+      - libxinerama1
+      - libxrandr2
+      - libxrender1
+      - libxss1
+      - libatk-bridge2.0-0
+      - libatspi0
     override-build: |
       chmod +x $CRAFT_PART_SRC/xenia_canary_linux.AppImage
       $CRAFT_PART_SRC/xenia_canary_linux.AppImage --appimage-extract
@@ -44,7 +70,7 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/share/icons/
 
       cp squashfs-root/usr/bin/xenia_canary $CRAFT_PART_INSTALL/bin/xenia_canary
-      cp -r squashfs-root/usr/lib/* $CRAFT_PART_INSTALL/bin/
+      cp -r squashfs-root/usr/lib/* $CRAFT_PART_INSTALL/lib/
       cp -r squashfs-root/usr/share/* $CRAFT_PART_INSTALL/share/
       cp $CRAFT_PROJECT_DIR/org.xenia.Xenia-canary.desktop $CRAFT_PART_INSTALL/share/applications/
 
