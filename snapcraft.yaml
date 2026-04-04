@@ -41,6 +41,7 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/bin
       mkdir -p $CRAFT_PART_INSTALL/lib
       mkdir -p $CRAFT_PART_INSTALL/share/applications/
+      mkdir -p $CRAFT_PART_INSTALL/share/icons/
 
       cp squashfs-root/usr/bin/xenia_canary $CRAFT_PART_INSTALL/bin/xenia_canary
       cp -r squashfs-root/usr/lib/* $CRAFT_PART_INSTALL/lib/
@@ -52,5 +53,4 @@ parts:
     prime:
       - bin/*
       - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/*
-      - share/applications/*
-      - share/icons/*
+      - share/*
