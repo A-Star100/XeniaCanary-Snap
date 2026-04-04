@@ -50,8 +50,8 @@ parts:
       - libglu1-mesa
       - libdecor-1-0
       - libgtk2.0-0
-      - libxcb1
-      - libx11
+      - libxcb1-dev
+      - libx11-dev
       - libasound2
     # override-pull: |
     #   craftctl default
