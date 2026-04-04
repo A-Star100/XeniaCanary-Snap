@@ -1,5 +1,0 @@
---- /home/runner/work/XeniaCanary-Snap/XeniaCanary-Snap/parts/xenia-src/build/tools/build/compile_shader_spirv.py
-+++ /home/runner/work/XeniaCanary-Snap/XeniaCanary-Snap/parts/xenia-src/build/tools/build/compile_shader_spirv.py
-@@ -121,1 +121,1 @@
--        sys.stderr.write(result.stderr)
-+        sys.stderr.buffer.write(result.stderr)
