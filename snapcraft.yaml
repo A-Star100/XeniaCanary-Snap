@@ -15,7 +15,7 @@ apps:
   xenia-canary:
     command: bin/xenia-canary.sh
     desktop: share/applications/org.xenia.Xenia-canary.desktop
-    extensions: [kde]
+    extensions: [kde-neon-6]
     plugs:
       - x11
       - opengl
