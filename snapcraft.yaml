@@ -36,6 +36,7 @@ parts:
     source-tag: canary_experimental
     build-packages:
       - python3
+      - glslang-tools
       - build-essential
       - libvulkan-dev
       - libsdl2-dev
