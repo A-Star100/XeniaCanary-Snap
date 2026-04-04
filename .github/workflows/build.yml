@@ -27,7 +27,7 @@ jobs:
       - name: Upload snap
         uses: actions/upload-artifact@v6
         with:
-          name: srb2kart-${{ matrix.architecture }}-snap
+          name: xenia-canary-x64-snap
           path: "*.snap"
   #   with:
   #     channel: 'edge'
