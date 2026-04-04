@@ -77,6 +77,8 @@ parts:
 
       # move launcher sh to /bin/ so it is used at run time
       cp $CRAFT_PROJECT_DIR/xenia-canary.sh $CRAFT_PART_INSTALL/bin/
+      # also move config toml
+      cp $CRAFT_PROJECT_DIR/xenia-canary.config.toml $CRAFT_PART_INSTALL/bin/
       # give it correct permissions (note to anyone reading this... never forget to chmod +x an .sh)
       chmod +x $CRAFT_PART_INSTALL/bin/xenia-canary.sh
 
