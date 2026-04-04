@@ -1,0 +1,41 @@
+name: Test build
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-build:
+    strategy:
+      matrix:
+        include:
+          - architecture: amd64
+            os: ubuntu-24.04
+          - architecture: arm64
+            os: ubuntu-24.04-arm 
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install snapcraft cli
+        run: |
+          sudo snap install snapcraft --classic
+
+      - name: Build snap
+        run: |
+          sudo snapcraft pack --destructive-mode
+        env:
+          SNAPCRAFT_BUILD_ENVIRONMENT: host
+          USE_SYSTEM_FPM: true
+
+      - name: Upload snap
+        uses: actions/upload-artifact@v6
+        with:
+          name: srb2kart-${{ matrix.architecture }}-snap
+          path: "*.snap"
+  #   with:
+  #     channel: 'edge'
+  #   secrets: inherit
