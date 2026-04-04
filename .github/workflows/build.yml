@@ -35,9 +35,10 @@ jobs:
           path: "*.snap"
 
       - name: Publish snap
-        uses: snapcore/action-publish@v1
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
-        with:
-          snap: ${{ env.SNAP_PATH }}
-          release: canary
+          SNAPCRAFT_STORE_AUTH: candid # this is because token is usually made with candid option enabled
+          snap_file_path: ${{ env.SNAP_FILENAME }} # linter will warn about this env in github editor
+                                                  # this can be ignored, env resolves correctly
+        run: |
+          snapcraft upload $snap_filepath --release canary
