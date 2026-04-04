@@ -1,9 +1,9 @@
 name: Test build
 on:
   push:
-    branches: [ main ]
+    branches: [ appimage ]
   pull_request:
-    branches: [ main ]
+    branches: [ appimage ]
   workflow_dispatch:
 
 jobs:
