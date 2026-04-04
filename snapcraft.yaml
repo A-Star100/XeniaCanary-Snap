@@ -36,7 +36,7 @@ parts:
   xenia-src:
     plugin: nil
     source: https://github.com/xenia-canary/xenia-canary.git
-    source-tag: canary_experimental
+    source-branch: canary_experimental
     build-packages:
       - python3
       - glslang-tools
