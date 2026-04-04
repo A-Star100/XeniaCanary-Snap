@@ -46,6 +46,8 @@ parts:
       - libvulkan1
       - libglu1-mesa
       - libgtk2.0-0
+      - libxcb1-dev
+      - libx11-dev
     # override-pull: |
     #   craftctl default
     #   project="${CRAFT_PROJECT_DIR:-$SNAPCRAFT_PROJECT_DIR}"
