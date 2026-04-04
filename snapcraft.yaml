@@ -15,7 +15,6 @@ apps:
   xenia-canary:
     command: bin/xenia-canary.sh
     desktop: share/applications/org.xenia.Xenia-canary.desktop
-    extensions: [kde-neon]
     plugs:
       - x11
       - opengl
@@ -50,13 +49,6 @@ parts:
       
       cp $CRAFT_PROJECT_DIR/org.xenia.Xenia-canary.desktop $CRAFT_PART_INSTALL/share/applications/
       cp $CRAFT_PROJECT_DIR/xenia-canary.svg $CRAFT_PART_INSTALL/share/icons/hicolor/scalable/apps/xenia_canary
-
-    stage-packages:
-      - libvulkan1
-      - libglu1-mesa
-      - libsdl2-2.0-0
-      - libasound2
-      - libpulse0
 
     prime:
       - bin/*
