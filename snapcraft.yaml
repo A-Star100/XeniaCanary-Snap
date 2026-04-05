@@ -59,7 +59,6 @@ parts:
       - libxrender1
       - libxss1
       - libatk-bridge2.0-0
-      - libatspi0
     override-build: |
       chmod +x $CRAFT_PART_SRC/xenia_canary_linux.AppImage
       $CRAFT_PART_SRC/xenia_canary_linux.AppImage --appimage-extract
