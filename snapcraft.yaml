@@ -47,7 +47,7 @@ parts:
       - libgtk-3-0
       - libpango-1.0-0
       - libpangocairo-1.0-0
-      - libSDL2-2.0
+      - libsdl2-2.0-0
       - libpulse0
       - libxcomposite1
       - libxcursor1
