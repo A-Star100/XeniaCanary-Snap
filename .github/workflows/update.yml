@@ -30,3 +30,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add snapcraft.yaml
           git diff --quiet && git diff --staged --quiet || (git commit -m "Bump version to ${{ steps.get_tag.outputs.tag }}" && git push)
+  build-after-publish:
+    name: Build snap
+    needs: [update-snap]
+    uses: ./.github/workflows/build.yml
