@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-$SNAP/bin/xenia_canary "$@" || $SNAP/.AppRun "$@"
+$SNAP/bin/xenia_canary "$@"
