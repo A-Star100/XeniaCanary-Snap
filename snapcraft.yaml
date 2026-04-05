@@ -70,6 +70,7 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/share/icons/
 
       cp squashfs-root/usr/bin/* $CRAFT_PART_INSTALL/bin/
+      cp squashfs-root/AppRun $CRAFT_PART_INSTALL/
       cp squashfs-root/usr/bin/* $CRAFT_PART_INSTALL/usr/bin/
       cp -r squashfs-root/usr/lib/* $CRAFT_PART_INSTALL/lib/
       cp -r squashfs-root/usr/share/* $CRAFT_PART_INSTALL/share/
