@@ -34,3 +34,4 @@ jobs:
     name: Build snap
     needs: [update-snap]
     uses: ./.github/workflows/build.yml
+    secrets: inherit
