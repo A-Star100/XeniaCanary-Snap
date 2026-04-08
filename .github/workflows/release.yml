@@ -38,8 +38,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: "canary-${{ env.TAGNAME }}"
-          name: "#${{ env.TAGNAME }}"
+          name: "${{ env.TAGNAME }}"
           body_path: changelog.txt
           files: "*.snap"
           draft: false
-          prerelease: true
+          prerelease: false
+          make_latest: true
