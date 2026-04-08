@@ -1,6 +1,6 @@
 name: xenia-canary
 base: core24
-version: '8a49c03'
+version: 'e23376a'
 summary: Xbox 360 research emulator 
 description: |
   Xenia Canary is an experimental fork of the Xbox 360 emulator, Xenia.
