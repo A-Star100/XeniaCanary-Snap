@@ -1,0 +1,44 @@
+name: Create GitHub release
+on:
+  workflow_call:
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Download snap
+        uses: actions/download-artifact@v8
+        with:
+          name: xenia-canary-x64-snap
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch upstream changelog
+        id: changelog
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          body=$(gh api repos/xenia-canary/xenia-canary/releases/latest --jq '.body')
+          tag=$(gh api repos/xenia-canary/xenia-canary/releases/latest --jq '.tag_name')
+          
+          echo "$body" > changelog.txt
+          # so the create release step uses it
+          # instead of some other thing for the tag
+          echo "TAGNAME=$tag" >> $GITHUB_ENV
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "canary-${{ env.TAGNAME }}"
+          name: "#${{ env.TAGNAME }}"
+          body_path: changelog.txt
+          files: "*.snap"
+          draft: false
+          prerelease: true
