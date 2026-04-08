@@ -38,7 +38,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: "${{ env.TAGNAME }}"
-          name: "${{ env.TAGNAME }}"
+          name: "${{ env.TAGNAME }}_canary_experimental"
           body_path: changelog.txt
           files: "*.snap"
           draft: false
