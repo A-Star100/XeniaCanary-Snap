@@ -38,6 +38,33 @@ jobs:
           # else do the commit
           git commit -m "Bump version to ${{ steps.get_tag.outputs.tag }}"
           git push
+
+      - name: Verify commit
+        run: |
+          # this loop is for verifying commit sync
+          # with remote cuz otherwise the next job won't sync
+          # would rather not use the same yaml to inherit same local commits
+          # or attempt and sync them honestly
+
+          # also long for loop warning
+          local=$(git rev-parse HEAD)
+          echo "Verifying $local"
+          
+          for i in {1..5}; do
+            git fetch origin --quiet
+            remote=$(git rev-parse @{u})
+            
+            if [ "$local" == "$remote" ]; then
+              echo "Commit is on remote, building now."
+              exit 0
+            fi
+            
+            echo "Commit isn't on remote yet. Trying again..."
+            sleep 5
+          done
+
+          echo "Error: Remote took too long to sync. Check for any problems and try again."
+          exit 1
   build-after-publish:
     name: Build snap
     needs: [update-snap]
