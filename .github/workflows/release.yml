@@ -1,7 +1,7 @@
 name: Create GitHub release
 on:
   workflow_call:
-  workflow_dispatch:
+ #workflow_dispatch:
 
 jobs:
   create-release:
@@ -37,7 +37,7 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "canary-${{ env.TAGNAME }}"
+          tag_name: "${{ env.TAGNAME }}"
           name: "${{ env.TAGNAME }}"
           body_path: changelog.txt
           files: "*.snap"
