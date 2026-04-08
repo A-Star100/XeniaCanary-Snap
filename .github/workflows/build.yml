@@ -40,3 +40,8 @@ jobs:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
         run: |
           snapcraft upload $SNAP_PATH --release candidate
+
+  create-github-release:
+    name: Release to GitHub
+    needs: [test-build]
+    uses: ./.github/workflows/release.yml
