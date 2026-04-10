@@ -1,7 +1,5 @@
 name: Test build (debug)
 on:
-  push:
-    branches: [ appimage ]
   pull_request:
     branches: [ appimage ]
   workflow_dispatch:
