@@ -35,32 +35,6 @@ parts:
     source: https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary_linux.AppImage
     source-type: file
     extensions: [kde-neon]
-    # stage-packages:
-    #   - libx11-6
-    #   - libx11-xcb1
-    #   - libxcb1
-    #   - libasound2t64
-    #   - libgbm1
-    #   - libwayland-client0
-    #   - libfontconfig1
-    #   - libfribidi0
-    #   - libharfbuzz0b
-    #   - libgtk-3-0
-    #   - libpango-1.0-0
-    #   - libpangocairo-1.0-0
-    #   - libsdl2-2.0-0
-    #   - libpulse0
-    #   - libxcomposite1
-    #   - libxcursor1
-    #   - libxdamage1
-    #   - libxext6
-    #   - libxfixes3
-    #   - libxi6
-    #   - libxinerama1
-    #   - libxrandr2
-    #   - libxrender1
-    #   - libxss1
-    #   - libatk-bridge2.0-0
     override-build: |
       chmod +x $CRAFT_PART_SRC/xenia_canary_linux.AppImage
       $CRAFT_PART_SRC/xenia_canary_linux.AppImage --appimage-extract
