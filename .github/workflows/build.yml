@@ -2,8 +2,6 @@ name: Test build & release
 on:
   push:
     branches: [ appimage ]
-  pull_request:
-    branches: [ appimage ]
   workflow_dispatch:
   workflow_call:
 
