@@ -15,6 +15,7 @@ apps:
   xenia-canary:
     command: bin/xenia-canary.sh
     desktop: share/applications/org.xenia.Xenia-canary.desktop
+    extensions: [kde-neon]
     plugs:
       - x11
       - opengl
@@ -34,7 +35,6 @@ parts:
     plugin: nil
     source: https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary_linux.AppImage
     source-type: file
-    extensions: [kde-neon]
     override-build: |
       chmod +x $CRAFT_PART_SRC/xenia_canary_linux.AppImage
       $CRAFT_PART_SRC/xenia_canary_linux.AppImage --appimage-extract
