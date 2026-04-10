@@ -28,7 +28,7 @@ apps:
     environment:
       HOME: $SNAP_USER_COMMON
       LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/lib:$SNAP/lib64:$LD_LIBRARY_PATH
-    extensions: [kde-neon]
+    extensions: [gnome]
 
 parts:
   xenia-bin:
