@@ -1,4 +1,4 @@
-name: Test build
+name: Test build & release
 on:
   push:
     branches: [ appimage ]
