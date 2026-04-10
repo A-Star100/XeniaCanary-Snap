@@ -15,7 +15,6 @@ apps:
   xenia-canary:
     command: bin/xenia-canary.sh
     desktop: share/applications/org.xenia.Xenia-canary.desktop
-    extensions: [kde-neon]
     plugs:
       - x11
       - opengl
@@ -29,6 +28,7 @@ apps:
     environment:
       HOME: $SNAP_USER_COMMON
       LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/lib:$SNAP/lib64:$LD_LIBRARY_PATH
+    extensions: [kde-neon]
 
 parts:
   xenia-bin:
