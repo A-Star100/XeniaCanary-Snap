@@ -47,10 +47,10 @@ jobs:
           echo "Verifying $local"
           
           for i in {1..10}; do
-            git fetch origin "$branch_name" --quiet
+            git fetch origin "$branch" --quiet
             
             # check if local sha is in remote backlogs
-            if git merge-base --is-ancestor "$local" "origin/$branch_name"; then
+            if git merge-base --is-ancestor "$local" "origin/$branch"; then
               echo "$local is on remote, so building in 5s"
               sleep 5
               exit 0
