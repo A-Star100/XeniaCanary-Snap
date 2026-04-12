@@ -33,7 +33,7 @@ jobs:
           # check for any commits
           if git diff --quiet && git diff --staged --quiet; then
             echo "Ehh, nothin's new. Peace out."
-            exit 1 # fails fast
+            exit 1
           fi
           # else do the commit
           git commit -m "Bump version to ${{ steps.get_tag.outputs.tag }}"
@@ -51,7 +51,8 @@ jobs:
             
             # check if local sha is in remote backlogs
             if git merge-base --is-ancestor "$local_sha" "origin/$branch_name"; then
-              echo "$local_sha is on remote, so building now"
+              echo "$local_sha is on remote, so building in 5s"
+              sleep 5
               exit 0
             fi
           
