@@ -35,7 +35,7 @@ jobs:
           echo "TAGNAME=$tag" >> $GITHUB_ENV
 
       - name: Create release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: "${{ env.TAGNAME }}"
           name: "${{ env.TAGNAME }}_canary_experimental"
