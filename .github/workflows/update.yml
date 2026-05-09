@@ -17,9 +17,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y curl git
 
-      - name: Install snapcraft daemon
-        uses: samuelmeuli/action-snapcraft@v3
-
       - name: Get latest tag
         id: get_tag
         run: |
