@@ -2,15 +2,23 @@ name: Updates from upstream
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * 1,4,0'
   workflow_dispatch:
 
 jobs:
   update-snap:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Install deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl git
+
+      - name: Install snapcraft daemon
+        uses: samuelmeuli/action-snapcraft@v3
 
       - name: Get latest tag
         id: get_tag
