@@ -30,6 +30,9 @@ jobs:
           sed -i "s/^version: .*/version: '${{ steps.get_tag.outputs.tag }}'/" snapcraft.yaml
           sed -i "s/^source: .*/source: 'https://github.com/xenia-canary/xenia-canary/releases/download/${{ steps.get_tag.outputs.tag }}xenia_canary_linux.AppImage'/" snapcraft.yaml
 
+          # show changes
+          cat snapcraft.yaml
+
       - name: Commit and push
         run: |
           # set author to actions
