@@ -28,7 +28,7 @@ jobs:
         run: |
           # update version line
           sed -i "s/^version: .*/version: '${{ steps.get_tag.outputs.tag }}'/" snapcraft.yaml
-          sed -i "s|.*source: .*|source: 'https://github.com/xenia-canary/xenia-canary/releases/download/${{ steps.get_tag.outputs.tag }}/xenia_canary_linux.AppImage'|" snapcraft.yaml
+          sed -i "s|^\([[:space:]]*\)source: .*|\1source: 'https://github.com/xenia-canary/xenia-canary/releases/download/${{ steps.get_tag.outputs.tag }}/xenia_canary_linux.AppImage'|" snapcraft.yaml
 
           # show changes
           cat snapcraft.yaml
