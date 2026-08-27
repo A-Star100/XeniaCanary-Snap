@@ -1,6 +1,6 @@
 name: xenia-canary
 base: core24
-version: '9090088'
+version: '9d08d64'
 summary: Xbox 360 research emulator 
 description: |
   Xenia Canary is an experimental fork of the Xbox 360 emulator, Xenia.
@@ -32,7 +32,7 @@ apps:
 parts:
   xenia-bin:
     plugin: nil
-    source: 'https://github.com/xenia-canary/xenia-canary/releases/download/9090088/xenia_canary_linux.AppImage'
+    source: 'https://github.com/xenia-canary/xenia-canary/releases/download/9d08d64/xenia_canary_linux.AppImage'
     source-type: file
     stage-packages:
       - libx11-6
